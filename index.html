@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Юлія Карпова — Тренер Сили Голосу</title>
+  <title>Юля Карпова — Тренер Сили Голосу</title>
   <meta name="description" content="Психологія впливу та управління станом через звук. Голос, який слухають лідери.">
   <link rel="canonical" href="https://yuliakarpova.com.ua/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Юлія Карпова — Тренер Сили Голосу" />
+  <meta property="og:title" content="Юля Карпова — Тренер Сили Голосу" />
   <meta property="og:description" content="Авторська методика «Голос без маски». Навчання для лідерів та топ-менеджменту." />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -71,48 +73,108 @@
     .blob-teal   { background: rgba(45,212,191,0.15); }
 
     /* ── NAV ── */
+/* --- NAVIGATION --- */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
+      position: fixed; 
+      top: 0; left: 0; right: 0;
       z-index: 200;
       padding: 18px 60px;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; /* Лого зліва, Spacer справа */
       background: rgba(255,255,255,0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(139,92,246,0.08);
-      transition: box-shadow 0.3s;
+      transition: all 0.3s ease;
     }
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px; font-weight: 600;
-      color: var(--dark); text-decoration: none;
+      font-size: 22px; 
+      font-weight: 600;
+      color: var(--dark); 
+      text-decoration: none;
       letter-spacing: 0.03em;
+      position: relative;
+      z-index: 201; /* Щоб лого було над фоном */
+      flex: 0 0 auto; /* Не даємо логотипу розтягуватися */
     }
 
     .nav-logo span { color: var(--violet); }
 
-    .nav-links { display: flex; gap: 36px; }
-
-    .nav-link {
-      font-size: 11px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: #6B7280;
-      text-decoration: none; font-weight: 500;
-      transition: color 0.25s;
-      position: relative;
+    .nav-links { 
+      display: flex; 
+      gap: 36px; 
+      /* ІДЕАЛЬНЕ ЦЕНТРУВАННЯ: позиціонуємо відносно всього екрана */
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
     }
 
+    .nav-link {
+      font-size: 11px; 
+      letter-spacing: 0.2em;
+      text-transform: uppercase; 
+      color: #6B7280;
+      text-decoration: none; 
+      font-weight: 500;
+      transition: color 0.25s;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    /* Ефект підкреслення */
     .nav-link::after {
       content: '';
-      position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 2px; background: var(--violet);
+      position: absolute; 
+      bottom: -4px; left: 0; right: 0;
+      height: 2px; 
+      background: var(--violet);
       border-radius: 2px;
-      transform: scaleX(0); transform-origin: left;
+      transform: scaleX(0); 
+      transform-origin: left;
       transition: transform 0.3s;
     }
 
     .nav-link:hover { color: var(--violet); }
     .nav-link:hover::after { transform: scaleX(1); }
+
+    /* Spacer для візуальної рівноваги в flex-контейнері */
+    .nav-spacer {
+      width: 150px; /* Приблизна ширина, що дорівнює ширині логотипа */
+      height: 1px;
+      visibility: hidden;
+      flex: 0 0 auto;
+    }
+
+    /* --- MOBILE ADAPTATION --- */
+    @media (max-width: 991px) {
+      nav {
+        padding: 15px 40px;
+      }
+      .nav-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 15px 20px;
+        justify-content: center; /* Центруємо лого по центру мобілки */
+      }
+      .nav-links {
+        display: none; /* Ховаємо меню на мобільних, щоб не налізало на лого */
+      }
+      .nav-spacer {
+        display: none; /* Прибираємо зайвий відступ на мобільних */
+      }
+      .nav-logo {
+        font-size: 20px;
+        text-align: center;
+      }
+    }
 
     /* ── BUTTONS ── */
     .btn-primary {
@@ -226,6 +288,9 @@
       gap: 40px;
       position: relative;
       overflow: hidden;
+      text-align: center; 
+      align-items: center;
+      justify-content: center;
     }
 
     .stats-strip::before {
@@ -234,18 +299,39 @@
       background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(45,212,191,0.1) 100%);
     }
 
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;  
+      justify-content: center; 
+      position: relative;
+      z-index: 2;             
+    }
+
     .stat-num {
+      display: inline-block; 
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(48px, 5vw, 72px);
-      font-weight: 600; line-height: 1;
+      font-weight: 600; 
+      line-height: 1;
       background: linear-gradient(135deg, #A78BFA, #F9A8D4);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
+      text-align: center; 
     }
 
     .stat-lbl {
       font-size: 10px; letter-spacing: 0.3em;
       text-transform: uppercase; color: rgba(255,255,255,0.4);
       margin-top: 8px; font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .stats-strip {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+        gap: 30x;
+      }
     }
 
     /* ── ABOUT ── */
@@ -305,15 +391,49 @@
       overflow: hidden;
       border: 1px solid rgba(0,0,0,0.06);
       box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-      transition: all 0.4s cubic-bezier(.25,.8,.25,1);
+      
+      /* Додаємо flex, щоб кнопка завжди була внизу при різній кількості тексту */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      
+      /* ПРАВКА 1: Плавний і м'який перехід */
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                  box-shadow 0.4s ease, 
+                  border-color 0.4s ease;
     }
 
+    /* ПРАВКА 1: М'який підйом (не "стрибок") */
     .bento-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(139,92,246,0.12);
-      border-color: rgba(139,92,246,0.2);
+      transform: translateY(-4px); 
+      box-shadow: 0 15px 35px rgba(139,92,246,0.1);
+      border-color: rgba(139,92,246,0.15);
     }
 
+    /* ПРАВКА 2: Уніфікована кнопка "Обрати" */
+    .bento-btn {
+      width: fit-content;
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      margin-top: 24px; /* Відступ від тексту зверху */
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ПРАВКА 2: Однакова поведінка кнопок при наведенні */
+    .bento-btn:hover {
+      transform: scale(1.04);
+      filter: brightness(0.95);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Варіанти карток */
     .bento-card.violet-card {
       background: linear-gradient(145deg, var(--violet), var(--violet-dark));
       color: white;
@@ -334,6 +454,7 @@
       color: white;
     }
 
+    /* Розподіл колонок (твоя структура) */
     .bento-1 { grid-column: span 5; }
     .bento-2 { grid-column: span 7; }
     .bento-3 { grid-column: span 4; }
@@ -342,11 +463,13 @@
     .bento-6 { grid-column: span 6; }
     .bento-7 { grid-column: span 6; }
 
+    /* Елементи всередині карток */
     .bento-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 80px; font-weight: 300; line-height: 1;
       opacity: 0.08;
       position: absolute; top: 20px; right: 24px;
+      pointer-events: none; /* Щоб цифра не заважала виділяти текст */
     }
 
     .bento-icon {
@@ -370,27 +493,54 @@
 
     .bento-desc {
       font-size: 13px; line-height: 1.75;
-      color: #9CA3AF; font-weight: 400;
-      margin-bottom: 28px;
+      color: #6B7280; font-weight: 400;
+      margin-bottom: 24px;
     }
 
-    .bento-card.violet-card .bento-desc { color: rgba(255,255,255,0.65); }
-    .bento-card.dark-card .bento-desc { color: rgba(255,255,255,0.5); }
+    /* Адаптація кольору тексту в темних картах */
+    .violet-card .bento-desc { color: rgba(255,255,255,0.7); }
+    .dark-card .bento-desc { color: rgba(255,255,255,0.5); }
+
+    /* ПРАВКА 3: Точки (features) — уніфікований вигляд */
+    .bento-features-list {
+      margin-bottom: 8px; /* Відступ перед кнопкою */
+    }
 
     .bento-feature {
       display: flex; align-items: center; gap: 10px;
       font-size: 12px; color: #6B7280;
-      margin-bottom: 8px; font-weight: 500;
+      margin-bottom: 10px; font-weight: 500;
     }
 
     .bento-feature-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--teal); flex-shrink: 0;
+      background: #8B5CF6; /* Дефолтний колір точки */
+      flex-shrink: 0;
     }
 
+    /* Кольори точок для різних типів карт */
     .violet-card .bento-feature { color: rgba(255,255,255,0.8); }
-    .violet-card .bento-feature-dot { background: rgba(255,255,255,0.5); }
+    .violet-card .bento-feature-dot { background: white; opacity: 0.6; }
+    
     .dark-card .bento-feature { color: rgba(255,255,255,0.7); }
+    .dark-card .bento-feature-dot { background: #2DD4BF; }
+
+    .peach-card .bento-feature { color: #9A5A3A; }
+    .peach-card .bento-feature-dot { background: #FF8A65; }
+
+    .teal-card .bento-feature { color: #0F766E; }
+    .teal-card .bento-feature-dot { background: #14B8A6; }
+
+    /* Мобільна адаптація сітки */
+    @media (max-width: 991px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-1, .bento-2, .bento-3, .bento-4, .bento-5, .bento-6, .bento-7 { grid-column: span 1; }
+    }
+
+    @media (max-width: 768px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card { padding: 30px; }
+    }
 
     /* ── MINI BENTO BTN ── */
     .bento-btn {
@@ -478,30 +628,57 @@
     }
 
     /* ── FOOTER ── */
-    footer {
+footer {
       background: var(--dark);
-      padding: 60px;
-      border-top: none;
+      padding: 40px 60px; /* Зменшено з 60px для компактності */
+      border-top: 1px solid rgba(255,255,255,0.05); /* Ледь помітна лінія розділення */
     }
 
     .footer-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; font-weight: 600;
-      color: white; margin-bottom: 8px;
+      font-size: 24px; /* Трохи менший, щоб виглядав витонченіше */
+      font-weight: 600;
+      color: white;
     }
 
-    .footer-logo span { color: var(--violet-light); }
+    .footer-logo span { 
+      /* Градієнт як у цифрах статистики */
+      background: linear-gradient(135deg, #A78BFA, #F9A8D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
     .footer-link {
-      font-size: 11px; letter-spacing: 0.2em;
+      font-size: 11px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
       text-decoration: none;
-      transition: color 0.3s;
+      transition: all 0.3s ease;
       font-weight: 500;
     }
 
-    .footer-link:hover { color: var(--violet-light); }
+    .footer-link:hover { 
+      color: white; 
+      letter-spacing: 0.25em; /* Ефект "дихання" при наведенні */
+    }
+
+    /* Адаптація для мобільних пристроїв */
+    @media (max-width: 768px) {
+      footer {
+        padding: 40px 20px;
+      }
+      /* На мобілці елементи стають у стовпчик по центру */
+      footer > div {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 30px !important;
+      }
+      /* Копірайт на мобілці теж по центру */
+      footer div[style*="text-align: right"] {
+        text-align: center !important;
+      }
+    }
 
     /* ── FADE UP ── */
     .fade-up {
@@ -617,12 +794,16 @@
       position: relative; z-index: 2;
     }
 
-    .photo-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(40px);
-      z-index: 1;
-    }
+.photo-blob {
+  position: absolute;
+  border-radius: 50%;
+  /* Прибираємо фоновий колір тут, щоб він брався з HTML */
+  background: transparent; 
+  /* Додаємо обов'язкове розмиття */
+  filter: blur(60px); 
+  pointer-events: none;
+  z-index: 1;
+}
 
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
@@ -644,75 +825,158 @@
       position: absolute;
       pointer-events: none;
     }
+/* --- ПОВНА МОБІЛЬНА АДАПТАЦІЯ (ВСЕ В ОДНОМУ) --- */
+    @media (max-width: 768px) {
+        /* 1. Головний екран: Текст по центру, піднятий вгору */
+        section.hero div[style*="max-width: 1200px"] {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            text-align: center !important;
+            padding: 60px 20px 40px !important;
+            grid-template-columns: 1fr !important;
+        }
+
+        .hero-eyebrow {
+            margin: 0 auto 24px auto !important;
+            display: inline-flex !important;
+        }
+
+        .hero-title {
+            text-align: center !important;
+            font-size: 38px !important;
+            line-height: 1.1 !important;
+            margin: 0 auto 20px auto !important;
+            width: 100% !important;
+        }
+
+        .hero-sub {
+            text-align: center !important;
+            margin: 0 auto 32px auto !important;
+        }
+
+        section.hero div[style*="display:flex; gap:16px"] {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+
+        /* Фото Юлі на фоні */
+        section.hero div[style*="background-image: url('yulia.webp')"] {
+            width: 100% !important;
+            opacity: 0.25 !important;
+            background-position: center center !important;
+        }
+
+        /* 2. Блоки статистики та сітки (щоб не розповзалися) */
+        .stats-strip {
+            grid-template-columns: 1fr !important;
+            gap: 30px !important;
+            padding: 40px 20px !important;
+        }
+
+        .about-section div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+        }
+
+        .bento-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+        }
+
+        .bento-1, .bento-2, .bento-3, .bento-4, .bento-5, .bento-6, .bento-7 {
+            grid-column: span 1 !important;
+            min-height: auto !important;
+        }
+    }
+
+    
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Юлія <span>Карпова</span></a>
+  <a href="#" class="nav-logo" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 34px; letter-spacing: -0.01em; line-height: 1;">Юля <span>Карпова</span></a>
+  
   <div class="nav-links">
     <a href="#about" class="nav-link">Про мене</a>
     <a href="#services" class="nav-link">Послуги</a>
     <a href="#tickets" class="nav-link">Квитки</a>
   </div>
-  <a href="https://concert.ua/uk/event/yulja-karpova" target="_blank" class="btn-primary" style="padding: 13px 28px; font-size: 10px;">
-    <span>→ Подія</span>
-  </a>
+
+  <div class="nav-spacer"></div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
+<section class="hero" id="home" style="background: #ffffff; min-height: 100vh; display: flex; align-items: center; overflow: hidden; position: relative; padding: 0;">
 
-  <!-- Blobs -->
-  <div class="blob blob-violet" style="width:700px;height:700px;top:-200px;right:-200px;"></div>
-  <div class="blob blob-peach"  style="width:500px;height:500px;bottom:-100px;left:-100px;"></div>
-  <div class="blob blob-teal"   style="width:300px;height:300px;top:40%;left:35%;"></div>
+  <div style="position: absolute; width: 50%; height: 100%; top: 0; left: 0; 
+    background: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08) 0%, rgba(255, 255, 255, 0) 60%);
+    filter: blur(60px); z-index: 1; pointer-events: none;">
+  </div>
 
-  <!-- Decorative rings -->
-  <div class="shape-ring" style="width:300px;height:300px;top:80px;right:45%;"></div>
-  <div class="shape-ring" style="width:180px;height:180px;bottom:120px;right:15%;border-color:rgba(255,138,101,0.15);"></div>
-
-  <div style="max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;">
-
-    <!-- Left -->
-    <div>
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
-        Тренерка сили голосу · Експертка з впливу
+  <div style="max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; align-items: center; position: relative; z-index: 10; padding: 0 40px;">
+    <div style="padding-right: 40px;">
+      <div class="hero-eyebrow" style="background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.1); display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 100px; margin-bottom: 32px;">
+        <div class="hero-eyebrow-dot" style="background: #8B5CF6;"></div>
+        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #8B5CF6;">Тренерка сили голосу · Експертка з впливу</span>
       </div>
 
-      <h1 class="hero-title">
+      <h1 class="hero-title" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: 0.01em; line-height: 1.0; font-size: clamp(48px, 5.5vw, 88px); color: #111827;">
         Ваш голос —<br>
         <span class="grad-text">найсильніша</span><br>
         зброя
       </h1>
 
-      <p class="hero-sub">
+      <p class="hero-sub" style="font-size: 18px; color: #4B5563; max-width: 480px; line-height: 1.6; margin: 24px 0 40px 0;">
         Навчу звучати так, щоб вас неможливо було ігнорувати. Авторська методика для лідерів, політиків та підприємців.
       </p>
 
-      <div style="display:flex;gap:16px;flex-wrap:wrap;">
-        <a href="https://concert.ua/uk/event/yulja-karpova" target="_blank" class="btn-primary">
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="https://concert.ua/uk/event/yulja-karpova" target="_blank" class="btn-primary" style="padding: 20px 40px;">
           <span>Найближча подія →</span>
         </a>
-        <a href="#about" class="btn-outline">Дізнатись більше</a>
       </div>
     </div>
-
-    <!-- Right — Photo -->
-    <div class="photo-frame" style="display:flex;justify-content:flex-end;">
-      <div class="photo-blob" style="width:420px;height:420px;top:-40px;right:-40px;background:rgba(139,92,246,0.2);"></div>
-      <div class="photo-blob" style="width:220px;height:220px;bottom:-20px;left:0;background:rgba(255,138,101,0.25);"></div>
-      <div class="photo-blob" style="width:150px;height:150px;top:60%;right:10px;background:rgba(45,212,191,0.2);"></div>
-      <img src="yulia.webp" alt="Юлія Карпова"
-           style="width:100%;max-width:420px;height:auto;object-fit:cover;border-radius:24px;position:relative;z-index:3;box-shadow:0 40px 80px rgba(139,92,246,0.18);">
-    </div>
-
   </div>
 
-  <div class="scroll-hint" style="color:#9CA3AF;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;font-weight:600;">
-    <span>SCROLL</span>
+  <div style="
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    width: 50%; 
+    height: 100%; 
+    z-index: 5;
+    background-image: url('yulia.webp');
+    background-size: cover;
+    background-position: center 0%;
+    background-repeat: no-repeat;
+  ">
+    <div style="position: absolute; top: 0; left: 0; width: 40%; height: 100%; 
+      background: linear-gradient(to right, #ffffff 10%, rgba(255,255,255,0) 100%); 
+      z-index: 7;">
+    </div>
+    <div style="position: absolute; top: 0; right: 0; width: 100%; height: 100%; 
+      background: radial-gradient(circle at 70% 20%, rgba(139, 92, 246, 0.08) 0%, rgba(255, 255, 255, 0) 60%);
+      z-index: 6; pointer-events: none;">
+    </div>
+  </div>
+
+  <div class="scroll-hint" style="
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    color: #9CA3AF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+  ">
+    <span style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600;"></span>
     <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
       <path d="M8 4L8 20M8 20L4 16M8 20L12 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -720,49 +984,48 @@
 
 </section>
 
-<!-- STATS -->
-<div class="stats-strip">
-  <div style="position:relative;z-index:1;">
-    <div class="stat-num">1200+</div>
+
+<section class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 48px;">1200+</div>
     <div class="stat-lbl">учнів пройшли навчання</div>
   </div>
-  <div style="position:relative;z-index:1;">
-    <div class="stat-num">15 років</div>
+  
+  <div class="stat-item">
+    <div class="stat-num" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 48px;">15 років</div>
     <div class="stat-lbl">практичного досвіду</div>
   </div>
-  <div style="position:relative;z-index:1;">
-    <div class="stat-num">10+</div>
+  
+  <div class="stat-item">
+    <div class="stat-num" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 48px;">10+</div>
     <div class="stat-lbl">топових брендів-клієнтів</div>
   </div>
-</div>
+</section>
 
-<!-- ABOUT -->
 <section class="about-section" id="about">
   <div class="blob blob-violet" style="width:600px;height:600px;top:-200px;right:-200px;opacity:0.5;"></div>
   <div class="blob blob-teal"   style="width:400px;height:400px;bottom:-100px;left:-100px;opacity:0.4;"></div>
 
   <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2;">
 
-    <!-- Photo -->
     <div class="fade-up photo-frame">
       <div class="photo-blob" style="width:380px;height:380px;top:-30px;left:-30px;background:rgba(255,138,101,0.2);"></div>
       <div class="photo-blob" style="width:200px;height:200px;bottom:0;right:-20px;background:rgba(139,92,246,0.18);"></div>
       <div class="photo-blob" style="width:120px;height:120px;top:50%;left:50%;background:rgba(45,212,191,0.2);"></div>
-      <img src="yulia2.webp" alt="Юлія Карпова"
+      <img src="yulia2.webp" alt="Юля Карпова"
            style="width:100%;height:auto;object-fit:cover;border-radius:28px;position:relative;z-index:3;box-shadow:0 32px 72px rgba(0,0,0,0.1);">
     </div>
 
-    <!-- Text -->
     <div class="fade-up delay-1">
-      <div class="section-tag">Про Юлію</div>
+      <div class="section-tag">Про Юлю</div>
 
-      <h2 class="cormorant fade-up delay-2" style="font-size:clamp(36px,4vw,56px);font-weight:600;line-height:1.1;margin-bottom:24px;">
-        15 років у <em class="grad-text" style="font-style:italic;">медіа</em><br>
-        8 років <em class="grad-text-teal" style="font-style:italic;">викладання</em>
-      </h2>
+<h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 600; line-height: 1.1; letter-spacing: -0.01em;" class="fade-up delay-2">
+  15 років у <em class="grad-text" style="font-style: italic;">медіа</em><br>
+  8 років <em class="grad-text-teal" style="font-style: italic;">викладання</em>
+</h2>
 
       <p style="font-size:14px;line-height:2;color:#6B7280;margin-bottom:16px;">
-        Юлія Карпова — медіапрофесіоналка з колосальним досвідом на радіо та телебаченні. Тренерка з публічних виступів та впливу, стратегиня публічної комунікації.
+        Юля Карпова — медіапрофесіоналка з колосальним досвідом на радіо та телебаченні. Тренерка з публічних виступів та впливу, стратегиня публічної комунікації.
       </p>
       <p style="font-size:14px;line-height:2;color:#6B7280;margin-bottom:36px;">
         Поєднує техніку голосу, риторику та психологію впевненості. Навчить говорити на рівні лідерів.
@@ -779,96 +1042,123 @@
   </div>
 </section>
 
-<!-- SERVICES — BENTO GRID -->
 <section style="background:#FAFAFA;padding:100px 60px;" id="services">
   <div style="max-width:1200px;margin:0 auto;">
 
     <div class="fade-up" style="margin-bottom:60px;">
       <div class="section-tag">Послуги та менторство</div>
-      <h2 class="cormorant" style="font-size:clamp(36px,4vw,56px);font-weight:600;line-height:1.1;max-width:600px;">
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-size:clamp(36px,4vw,56px);font-weight:600;line-height:1.1;max-width:600px;">
         Від голосу до <span class="grad-text">лідерства</span>
       </h2>
     </div>
 
     <div class="bento-grid fade-up delay-1">
 
-      <!-- Card 1 – large violet -->
-      <div class="bento-card violet-card bento-1" style="min-height:380px;">
-        <div class="bento-num">01</div>
-        <div class="bento-icon icon-white">🎤</div>
-        <h3 class="bento-title">Публічне мовлення та риторика</h3>
-        <p class="bento-desc">Структура сильної презентації та вміння відповідати на незручні питання</p>
-        <div class="bento-feature"><div class="bento-feature-dot"></div>Виступ без страху</div>
-        <div class="bento-feature"><div class="bento-feature-dot"></div>Впевненість на нарадах</div>
-        <div class="bento-feature"><div class="bento-feature-dot"></div>Авторитетне звучання</div>
-        <button onclick="openModal('Публічні виступи та риторика')" class="bento-btn bento-btn-violet" style="margin-top:28px;">Обрати →</button>
-      </div>
+<div class="bento-card violet-card bento-1" style="min-height:380px;">
+  <div>
+    <div class="bento-icon icon-white">🎤</div>
+    <h3 class="bento-title" style="font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Публічне мовлення та риторика</h3>
+    
+    <p class="bento-desc" style="min-height: 3em;">Структура сильної презентації та вміння відповідати на незручні питання</p>
+    
+    <div class="bento-features-list">
+      <div class="bento-feature"><div class="bento-feature-dot"></div>Виступ без страху</div>
+      <div class="bento-feature"><div class="bento-feature-dot"></div>Впевненість на нарадах</div>
+      <div class="bento-feature"><div class="bento-feature-dot"></div>Авторитетне звучання</div>
+    </div>
+  </div>
+  <button onclick="openModal('Публічні виступи')" class="bento-btn bento-btn-violet">Обрати →</button>
+</div>
 
-      <!-- Card 2 – large white -->
-      <div class="bento-card bento-2" style="min-height:380px;">
-        <div class="bento-num" style="color:rgba(139,92,246,0.06);">02</div>
-        <div class="bento-icon icon-violet">🔊</div>
-        <h3 class="bento-title" style="color:var(--violet);">Голос як інструмент впливу</h3>
-        <p class="bento-desc">Авторська методика. Робота з тембром, глибиною та психологією голосу</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px;">
-          <div class="bento-feature"><div class="bento-feature-dot"></div>Усунення тремтіння</div>
-          <div class="bento-feature"><div class="bento-feature-dot"></div>Тембр і глибина</div>
-          <div class="bento-feature"><div class="bento-feature-dot"></div>Говорити так, щоб слухали</div>
-          <div class="bento-feature"><div class="bento-feature-dot"></div>Дихання і темп</div>
-        </div>
-        <button onclick="openModal('Голос як інструмент впливу')" class="bento-btn bento-btn-outline">Обрати програму →</button>
-      </div>
+<div class="bento-card bento-2" style="min-height:380px; background: #F3E8FF; border-color: #D8B4FE;">
+  <div>
+    <div class="bento-icon icon-violet">🔊</div>
+    <h3 class="bento-title" style="color:#6B21A8; font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Голос як інструмент впливу</h3>
+    
+    <p class="bento-desc" style="color:#581C87; min-height: 3em;">Авторська методика. Робота з тембром, глибиною та психологією голосу</p>
+    
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;" class="bento-features-list">
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Усунення тремтіння</div>
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Тембр і глибина</div>
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Дихання і темп</div>
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Впевнений тон</div>
+    </div>
+  </div>
+  <button onclick="openModal('Голос як інструмент')" class="bento-btn" style="background:#8B5CF6; color:#fff;">Обрати →</button>
+</div>
 
-      <!-- Card 3 – peach -->
       <div class="bento-card peach-card bento-3" style="min-height:300px;">
-        <div class="bento-num" style="color:rgba(255,138,101,0.08);">03</div>
-        <div class="bento-icon icon-peach">💎</div>
-        <h3 class="bento-title" style="color:#C2490A;">Впевненість у публічних ситуаціях</h3>
-        <p class="bento-desc" style="color:#9A5A3A;">Робота з внутрішньою опорою. Синдром самозванця, страх оцінки</p>
-        <button onclick="openModal('Впевненість у публічних ситуаціях')" class="bento-btn" style="background:rgba(255,138,101,0.15);color:#C2490A;border:1.5px solid rgba(255,138,101,0.3);">Обрати →</button>
+    <div>
+      <div class="bento-icon icon-peach">💎</div>
+      <h3 class="bento-title" style="color:#C2490A; font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Впевненість</h3>
+      <p class="bento-desc" style="color:#9A5A3A;">Робота з внутрішньою опорою. Синдром самозванця, страх оцінки</p>
+      <div class="bento-features-list">
+        <div class="bento-feature"><div class="bento-feature-dot"></div>Внутрішня опора</div>
+        <div class="bento-feature"><div class="bento-feature-dot"></div>Самопрезентація</div>
       </div>
+    </div>
+    <button onclick="openModal('Впевненість')" class="bento-btn" style="background:#FF8A65; color:#fff;">Обрати →</button>
+  </div>
 
-      <!-- Card 4 – teal -->
       <div class="bento-card teal-card bento-4" style="min-height:300px;">
-        <div class="bento-num" style="color:rgba(45,212,191,0.08);">04</div>
-        <div class="bento-icon icon-teal">👑</div>
-        <h3 class="bento-title" style="color:#0F766E;">Жіноче лідерство через голос</h3>
-        <p class="bento-desc" style="color:#3D8A83;">Як звучати впевнено поруч із чоловіками, жіночий голос у переговорах</p>
-        <button onclick="openModal('Жіноче лідерство через голос')" class="bento-btn" style="background:rgba(45,212,191,0.15);color:#0F766E;border:1.5px solid rgba(45,212,191,0.3);">Обрати →</button>
+    <div>
+      <div class="bento-icon icon-teal">👑</div>
+      <h3 class="bento-title" style="color:#0F766E; font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Жіноче лідерство</h3>
+      <p class="bento-desc" style="color:#3D8A83;">Як звучати впевнено поруч із чоловіками, голос у переговорах</p>
+      <div class="bento-features-list">
+        <div class="bento-feature"><div class="bento-feature-dot"></div>Енергія голосу</div>
+        <div class="bento-feature"><div class="bento-feature-dot"></div>Вплив у команді</div>
       </div>
+    </div>
+    <button onclick="openModal('Жіноче лідерство')" class="bento-btn" style="background:#2DD4BF; color:#fff;">Обрати →</button>
+  </div>
 
-      <!-- Card 5 – dark -->
       <div class="bento-card dark-card bento-5" style="min-height:300px;">
-        <div class="bento-num" style="color:rgba(255,255,255,0.04);">05</div>
-        <div class="bento-icon icon-white">🏆</div>
-        <h3 class="bento-title">Персональний коучинг 1:1</h3>
-        <p class="bento-desc">Для CEO, політиків, держслужбовців та експертів перед великими виступами</p>
-        <button onclick="openModal('Персональний коучинг 1:1')" class="bento-btn bento-btn-dark">Записатися →</button>
+    <div>
+      <div class="bento-icon icon-white">🏆</div>
+      <h3 class="bento-title" style="font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start; margin-bottom: 14px;">
+      Персональний коучинг 1:1
+    </h3>
+      <p class="bento-desc">Для CEO, політиків та експертів перед великими виступами</p>
+      <div class="bento-features-list">
+        <div class="bento-feature"><div class="bento-feature-dot"></div>VIP супровід</div>
+        <div class="bento-feature"><div class="bento-feature-dot"></div>Розбір виступів</div>
       </div>
+    </div>
+    <button onclick="openModal('Коучинг')" class="bento-btn bento-btn-dark">Обрати →</button>
+  </div>
 
-      <!-- Card 6 -->
-      <div class="bento-card bento-6" style="min-height:240px;">
-        <div class="bento-num" style="color:rgba(139,92,246,0.05);">06</div>
-        <div class="bento-icon icon-violet">📡</div>
-        <h3 class="bento-title">Медіакомунікація та персональний бренд</h3>
-        <p class="bento-desc">Як давати інтерв'ю, формування публічної позиції, голос бренду, як не «злитися» під час хейту</p>
-        <button onclick="openModal('Медіакомунікація та персональний бренд')" class="bento-btn bento-btn-outline">Обрати →</button>
-      </div>
+      <div class="bento-card bento-6" style="min-height:240px; background: #E0F2FE; border-color: #7DD3FC;">
+  <div>
+    <div class="bento-icon icon-blue" style="background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.2);">📡</div>
+    
+    <h3 class="bento-title" style="color:#0369A1; font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Медіакомунікація</h3>
+    <p class="bento-desc" style="color:#075985;">Як давати інтерв'ю, формування публічної позиції, голос бренду</p>
+    <div class="bento-features-list">
+      <div class="bento-feature" style="color:#0369A1;"><div class="bento-feature-dot" style="background:#0EA5E9;"></div>Робота в кадрі</div>
+      <div class="bento-feature" style="color:#0369A1;"><div class="bento-feature-dot" style="background:#0EA5E9;"></div>Відповіді на хейт</div>
+    </div>
+  </div>
+  <button onclick="openModal('Медіакомунікація')" class="bento-btn" style="background:#0EA5E9; color:#fff;">Обрати →</button>
+</div>
 
-      <!-- Card 7 -->
-      <div class="bento-card bento-7" style="min-height:240px;background:linear-gradient(145deg,#F5F0FF,#EDE8FF);border-color:rgba(139,92,246,0.15);">
-        <div class="bento-num" style="color:rgba(139,92,246,0.06);">07</div>
-        <div class="bento-icon icon-violet">🤝</div>
-        <h3 class="bento-title" style="color:var(--violet-dark);">Комунікація для топ-менеджменту</h3>
-        <p class="bento-desc" style="color:#7C5CB8;">Комунікація в кризі, публічні заяви керівника та внутрішня комунікація в команді</p>
-        <button onclick="openModal('Комунікація для топ-менеджменту')" class="bento-btn" style="background:rgba(139,92,246,0.12);color:var(--violet-dark);border:1.5px solid rgba(139,92,246,0.25);">Обрати →</button>
+      <div class="bento-card bento-7" style="min-height:240px; background:linear-gradient(145deg,#F5F0FF,#EDE8FF); border-color:rgba(139,92,246,0.15);">
+    <div>
+      <div class="bento-icon icon-violet">🤝</div>
+      <h3 class="bento-title" style="color:var(--violet-dark); font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Для топ-менеджменту</h3>
+      <p class="bento-desc" style="color:#7C5CB8;">Комунікація в кризі, публічні заяви та внутрішня комунікація</p>
+      <div class="bento-features-list">
+        <div class="bento-feature" style="color:#7C5CB8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Кризовий PR</div>
+        <div class="bento-feature" style="color:#7C5CB8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Сила лідера</div>
       </div>
+    </div>
+    <button onclick="openModal('Топ-менеджмент')" class="bento-btn" style="background:rgba(139,92,246,0.12); color:var(--violet-dark); border:1.5px solid rgba(139,92,246,0.25);">Обрати →</button>
+  </div>
 
     </div>
   </div>
 </section>
 
-<!-- EVENT / TICKETS -->
 <section class="event-section" id="tickets">
   <div class="blob blob-violet" style="width:500px;height:500px;top:-100px;left:-100px;"></div>
   <div class="blob blob-peach"  style="width:400px;height:400px;bottom:-100px;right:-100px;"></div>
@@ -880,7 +1170,6 @@
     </div>
 
     <div class="event-card fade-up delay-1">
-      <!-- Decorative blobs inside card -->
       <div style="position:absolute;width:300px;height:300px;top:-80px;right:-80px;background:rgba(139,92,246,0.07);border-radius:50%;filter:blur(40px);pointer-events:none;"></div>
       <div style="position:absolute;width:200px;height:200px;bottom:-60px;left:-60px;background:rgba(255,138,101,0.07);border-radius:50%;filter:blur(40px);pointer-events:none;"></div>
 
@@ -889,11 +1178,11 @@
         Авторський інтенсив
       </div>
 
-      <h2 class="event-title grad-text">
+      <h2 class="event-title grad-text" style="font-family: 'Cormorant Garamond', serif;">
         ГОВОРИ,<br>ЩОБ СЛУХАЛИ
       </h2>
 
-      <p class="cormorant" style="font-size:clamp(20px,2.5vw,30px);font-style:italic;color:#6B7280;margin-bottom:24px;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-size:clamp(20px,2.5vw,30px);font-style:italic;color:#6B7280;margin-bottom:24px;">
         Про виступи, які не втомлюють
       </p>
 
@@ -909,28 +1198,36 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;">
-    <div>
-      <div class="footer-logo">Юлія <span>Карпова</span></div>
-      <div style="font-size:10px;letter-spacing:0.25em;color:rgba(255,255,255,0.2);text-transform:uppercase;">Тренер сили голосу</div>
+  <div style="max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;">
+    
+    <div style="flex: 1; min-width: 200px;">
+      <div class="footer-logo" style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 28px; color: white;">
+        Юля <span>Карпова</span>
+      </div>
+      <div style="font-size:9px; letter-spacing:0.3em; color:rgba(255,255,255,0.2); text-transform:uppercase; margin-top:4px;">
+        Тренер сили голосу
+      </div>
     </div>
-    <div style="display:flex;gap:28px;flex-wrap:wrap;">
-      <a href="https://www.instagram.com/y.karpova/" class="footer-link">Instagram</a>
-      <a href="https://www.facebook.com/yvkarpova?mibextid=wwXIfr&rdid=xrKhZS6I7vr7Z6kM" class="footer-link">Facebook</a>
+
+    <div style="display:flex; gap:32px; justify-content:center;">
+      <a href="https://www.instagram.com/y.karpova/" target="_blank" class="footer-link">Instagram</a>
+      <a href="https://www.facebook.com/yvkarpova" target="_blank" class="footer-link">Facebook</a>
       <a href="mailto:karpova.record.fm@gmail.com" class="footer-link">Email</a>
     </div>
-    <div style="font-size:10px;color:rgba(255,255,255,0.15);letter-spacing:0.15em;">© 2025 Юлія Карпова</div>
+
+    <div style="flex: 1; min-width: 200px; text-align: right; font-size: 12px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; font-weight: 500;">
+      © 2026 Юля Карпова
+    </div>
+
   </div>
 </footer>
 
-<!-- MODAL -->
 <div id="serviceModal" class="modal-overlay">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
 
-    <div class="modal-title">Записатися</div>
+    <div class="modal-title" style="font-family: 'Cormorant Garamond', serif;">Записатися</div>
     <div class="modal-service" id="modalServiceName"></div>
 
     <form id="telegramForm" style="display:flex;flex-direction:column;gap:20px;">
