@@ -864,6 +864,67 @@ footer {
         grid-column: span 1 !important;
       }
     }
+
+    /* --- ФІКС МОБІЛКИ: ПІДЙОМ ТЕКСТУ ТА ЦЕНТРУВАННЯ --- */
+    @media (max-width: 768px) {
+      /* 1. Піднімаємо всю секцію вище і центруємо контент */
+      .hero {
+        padding-top: 70px !important; /* Піднімаємо ближче до хедера */
+        align-items: flex-start !important;
+      }
+
+      /* Головний контейнер з текстом */
+      .hero > div[style*="max-width: 1200px"] {
+        grid-template-columns: 1fr !important; /* Скидаємо сітку в одну колонку */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        position: relative;
+        z-index: 10;
+        margin-top: 20px !important;
+      }
+
+      /* 2. Плашка "Тренерка сили голосу" по центру */
+      .hero-eyebrow {
+        margin: 0 auto 24px !important;
+        display: inline-flex !important;
+      }
+
+      /* 3. Заголовок і підзаголовок по центру */
+      .hero-title {
+        font-size: 42px !important;
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .hero-sub {
+        text-align: center !important;
+        margin: 0 auto 32px !important;
+        max-width: 100% !important;
+      }
+
+      /* 4. Кнопка по центру */
+      .hero div[style*="display:flex; gap:16px"] {
+        justify-content: center !important;
+        width: 100% !important;
+      }
+
+      /* 5. Фото Юлі робимо фоновим, щоб не заважало тексту */
+      .hero div[style*="position: absolute; top: 0; right: 0; width: 50%"] {
+        width: 100% !important;
+        height: 100% !important;
+        opacity: 0.2 !important; /* Робимо дуже блідим фоном */
+        z-index: 0 !important;
+        background-position: center !important;
+      }
+
+      /* ФІКС ФОРМИ: щоб не вилазила внизу */
+      .modal-overlay:not(.active) {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1025,34 +1086,38 @@ footer {
 
     <div class="bento-grid fade-up delay-1">
 
-      <div class="bento-card violet-card bento-1" style="min-height:380px;">
-    <div>
-      <div class="bento-icon icon-white">🎤</div>
-      <h3 class="bento-title" style="font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;" >Публічне мовлення та риторика</h3>
-      <p class="bento-desc">Структура сильної презентації та вміння відповідати на незручні питання</p>
-      <div class="bento-features-list">
-        <div class="bento-feature"><div class="bento-feature-dot"></div>Виступ без страху</div>
-        <div class="bento-feature"><div class="bento-feature-dot"></div>Впевненість на нарадах</div>
-        <div class="bento-feature"><div class="bento-feature-dot"></div>Авторитетне звучання</div>
-      </div>
+<div class="bento-card violet-card bento-1" style="min-height:380px;">
+  <div>
+    <div class="bento-icon icon-white">🎤</div>
+    <h3 class="bento-title" style="font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Публічне мовлення та риторика</h3>
+    
+    <p class="bento-desc" style="min-height: 3em;">Структура сильної презентації та вміння відповідати на незручні питання</p>
+    
+    <div class="bento-features-list">
+      <div class="bento-feature"><div class="bento-feature-dot"></div>Виступ без страху</div>
+      <div class="bento-feature"><div class="bento-feature-dot"></div>Впевненість на нарадах</div>
+      <div class="bento-feature"><div class="bento-feature-dot"></div>Авторитетне звучання</div>
     </div>
-    <button onclick="openModal('Публічні виступи')" class="bento-btn bento-btn-violet">Обрати →</button>
   </div>
+  <button onclick="openModal('Публічні виступи')" class="bento-btn bento-btn-violet">Обрати →</button>
+</div>
 
-      <div class="bento-card bento-2" style="min-height:380px; background: #F3E8FF; border-color: #D8B4FE;">
-    <div>
-      <div class="bento-icon icon-violet">🔊</div>
-      <h3 class="bento-title" style="color:#6B21A8; font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Голос як інструмент впливу</h3>
-      <p class="bento-desc" style="color:#581C87;">Авторська методика. Робота з тембром, глибиною та психологією голосу</p>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;" class="bento-features-list">
-        <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Усунення тремтіння</div>
-        <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Тембр і глибина</div>
-        <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Дихання і темп</div>
-        <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Впевнений тон</div>
-      </div>
+<div class="bento-card bento-2" style="min-height:380px; background: #F3E8FF; border-color: #D8B4FE;">
+  <div>
+    <div class="bento-icon icon-violet">🔊</div>
+    <h3 class="bento-title" style="color:#6B21A8; font-family: 'Cormorant Garamond', serif; min-height: 2.4em; display: flex; align-items: flex-start;">Голос як інструмент впливу</h3>
+    
+    <p class="bento-desc" style="color:#581C87; min-height: 3em;">Авторська методика. Робота з тембром, глибиною та психологією голосу</p>
+    
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;" class="bento-features-list">
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Усунення тремтіння</div>
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Тембр і глибина</div>
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Дихання і темп</div>
+      <div class="bento-feature" style="color:#6B21A8;"><div class="bento-feature-dot" style="background:#8B5CF6;"></div>Впевнений тон</div>
     </div>
-    <button onclick="openModal('Голос як інструмент')" class="bento-btn" style="background:#8B5CF6; color:#fff;">Обрати →</button>
   </div>
+  <button onclick="openModal('Голос як інструмент')" class="bento-btn" style="background:#8B5CF6; color:#fff;">Обрати →</button>
+</div>
 
       <div class="bento-card peach-card bento-3" style="min-height:300px;">
     <div>
