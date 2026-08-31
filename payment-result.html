@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Результат оплати</title>
+<style>
+  body{font-family:sans-serif;max-width:480px;margin:80px auto;padding:0 20px;text-align:center;}
+  #result{font-size:18px;font-weight:600;}
+  .muted{color:#6B7280;font-size:13px;margin-top:10px;}
+</style>
+</head>
+<body>
+  <div id="result">Перевіряємо статус оплати…</div>
+  <div class="muted" id="detail"></div>
+
+  <script>
+    // TODO: заміни на реальну адресу свого Worker після деплою
+    const WORKER_URL = "https://mono-pay.<твій-акаунт>.workers.dev";
+
+    (async () => {
+      const invoiceId = sessionStorage.getItem("monobank_invoice_id");
+      const resultEl = document.getElementById("result");
+      const detailEl = document.getElementById("detail");
+
+      if (!invoiceId) {
+        resultEl.textContent = "Не знайдено інформацію про платіж.";
+        detailEl.textContent = "Спробуйте оплатити ще раз.";
+        return;
+      }
+
+      try {
+        const res = await fetch(WORKER_URL + "/api/monobank/status?invoiceId=" + encodeURIComponent(invoiceId));
+        const data = await res.json();
+
+        switch (data.status) {
+          case "success":
+            resultEl.textContent = "✅ Оплата успішна!";
+            sessionStorage.removeItem("monobank_invoice_id");
+            break;
+          case "processing":
+          case "created":
+            resultEl.textContent = "⏳ Платіж ще обробляється";
+            detailEl.textContent = "Онови сторінку за хвилину.";
+            break;
+          case "failure":
+            resultEl.textContent = "❌ Оплата не пройшла";
+            break;
+          case "expired":
+            resultEl.textContent = "⌛ Час на оплату вийшов";
+            break;
+          default:
+            resultEl.textContent = "Статус: " + (data.status || "невідомий");
+        }
+      } catch (err) {
+        resultEl.textContent = "Помилка перевірки статусу";
+        detailEl.textContent = err.message;
+      }
+    })();
+  </script>
+</body>
+</html>
