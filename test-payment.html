@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Тест оплати — Monobank</title>
+<style>
+  body{font-family:sans-serif;max-width:480px;margin:80px auto;padding:0 20px;text-align:center;}
+  button{
+    background:#8B5CF6;color:white;border:none;border-radius:100px;
+    padding:16px 36px;font-size:15px;font-weight:600;cursor:pointer;
+  }
+  button:disabled{opacity:0.6;cursor:default;}
+  #payStatus{margin-top:16px;font-size:13px;color:#EF4444;}
+</style>
+</head>
+<body>
+  <h1>Тестова оплата — 100 грн</h1>
+  <button id="payBtn">Перейти до оплати</button>
+  <div id="payStatus"></div>
+
+  <script>
+    // TODO: заміни на реальну адресу свого Worker після деплою
+    const WORKER_URL = "https://mono-pay.<твій-акаунт>.workers.dev";
+
+    document.getElementById("payBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("payBtn");
+      const statusEl = document.getElementById("payStatus");
+      btn.disabled = true;
+      btn.textContent = "Створюємо платіж...";
+      statusEl.textContent = "";
+
+      try {
+        const res = await fetch(WORKER_URL + "/api/monobank/create-invoice", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: 10000, // 100 грн у копійках
+            description: "Тестова оплата",
+          }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.pageUrl) {
+          throw new Error(data.error ? JSON.stringify(data.error) : "Не вдалось створити платіж");
+        }
+
+        // зберігаємо invoiceId, щоб перевірити статус після повернення на сайт
+        sessionStorage.setItem("monobank_invoice_id", data.invoiceId);
+
+        // ведемо користувача на сторінку оплати Monobank
+        window.location.href = data.pageUrl;
+      } catch (err) {
+        statusEl.textContent = "Помилка: " + err.message;
+        btn.disabled = false;
+        btn.textContent = "Перейти до оплати";
+      }
+    });
+  </script>
+</body>
+</html>
